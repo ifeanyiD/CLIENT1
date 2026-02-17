@@ -140,3 +140,60 @@
     }
   }
 }
+
+
+.testimony{
+    .container{
+        min-height: 100vh;
+        display: grid;
+        gap: 15px;
+        .scene {
+            --cube-sze : min(90vw, 350px);
+
+            width: var(--cube-sze);
+            height: var(--cube-sze);
+            perspective: 1000px;
+            margin: auto;
+            .cube {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 0.8s ease-in-out;
+                .face {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                    backface-visibility: hidden;
+                    border: solid 1px black;
+                }
+                .front  { transform: rotateY(0deg) translateZ(calc(var(--cube-sze)/2)); }
+                .right  { transform: rotateY(90deg) translateZ(calc(var(--cube-sze)/2)); }
+                .back   { transform: rotateY(180deg) translateZ(calc(var(--cube-sze)/2)); }
+                .left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-sze)/2)); }
+            }
+        }
+        .t_btn{
+            margin: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            button{
+                margin-left: 5px;
+                width: max-content;
+                height: max-content;
+            }
+            span{
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: red;
+            }
+        }
+    }
+}

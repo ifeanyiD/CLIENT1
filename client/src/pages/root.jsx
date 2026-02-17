@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import Nero from '../components/nero';
 import { MdEvent } from "react-icons/md";
 import { MdBrandingWatermark } from "react-icons/md";
@@ -10,6 +10,7 @@ import { FaVoteYea } from "react-icons/fa";
 import { SiAdguard } from "react-icons/si";
 import { IoLinkSharp } from "react-icons/io5";
 import { GrFormView } from "react-icons/gr";
+import { FaArrowTrendUp } from "react-icons/fa6";
 import A from "../assets/a.jpg"
 import B from "../assets/b.jpg"
 
@@ -26,9 +27,17 @@ const icons = [
                 <CiReceipt color='purple' fontSize={fontSize}/> 
               ]
 const imgs = [A, B];
-
+  
 export default function Root() {
   const [selectedImg, setSelectedImg] = useState(null);
+  const [rotation, setRotation] = useState(0);
+  const [index, setIndex] = useState(0);
+  const arr = Array.from({length : 4});
+  const nextTestimony = () => {
+    setRotation(prev => prev - 90);
+    let indexUpdate =  index === 3 ? 0 : index + 1
+    setIndex(indexUpdate)
+  };
 
   return (
     <div className='root'>
@@ -90,6 +99,33 @@ export default function Root() {
         </div>
       </section>
 
+      <section className='testimony'>
+          <div className='container'>
+            <h2>What our <span>customer say</span></h2>
+            <div className='scene'>
+              <div className='cube' style={{transform:`rotateY(${rotation}deg)`}}>
+                <div class="face front">Testimony 1</div>
+                <div class="face right">Testimony 2</div>
+                <div class="face back">Testimony 3</div>
+                <div class="face left">Testimony 4</div>
+              </div>
+            </div>
+            <div className='t_btn'>
+              <button onClick={nextTestimony} >Next</button>
+              {
+                arr.map((i, idx)=> <span style={index === idx ? {backgroundColor : "blue"} : {backgroundColor : "inherit"}}></span>)
+              }
+            </div>
+          </div>
+      </section>
+
+      <section className='r_contact'>
+        <div className='container'>
+              <h1>Having a celebration?</h1>
+              <h2>We are ready to plan your Events</h2>
+              <button><FaArrowTrendUp/><span>Contact us</span></button>
+        </div>
+      </section>
 
       {selectedImg &&
         <Modal setSelectedImg={setSelectedImg}>
