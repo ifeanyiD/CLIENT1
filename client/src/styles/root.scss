@@ -197,3 +197,37 @@
         }
     }
 }
+
+.r_contact{
+    background-color: #0077ff;
+    .container{
+        display: flex;
+        flex-direction: column;
+        min-height: 40vh;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        h1,h4{
+            color: rgb(228, 227, 227);
+        }
+        h1{
+            & > span{
+                background: linear-gradient(var(--orange1), purple, teal);
+                background-clip: text;
+                color: transparent;
+            }
+        }
+        button{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: solid 1px var(--orange1);
+            background-color: var(--orange3);
+            color: black;
+            transition: all 0.3s linear;
+            &:hover{
+                flex-direction: row-reverse;
+            }
+        }
+    }
+}

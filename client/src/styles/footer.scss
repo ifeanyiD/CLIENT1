@@ -1,0 +1,47 @@
+footer{
+    padding-bottom: 0;
+    background-color: black;
+    color: white;
+    .container{
+        display: block;
+        padding-bottom: 20px;
+        .footer{
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            @media (max-width : 767px){
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .about, .links{
+                    text-align: center;
+                }
+            }
+            .about{
+                max-width: 60ch;
+                p{color: gray;}
+            }
+            .links{
+                a{  
+                    margin-top: 5px;
+                    color: var(--orange3);
+                    &:hover{
+                        color: inherit;
+                    }
+                }
+                display: grid;
+            }
+        }
+    }
+}
+
+.copyRight{
+    background-color: rgb(20, 20, 20);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgb(255, 255, 255, 0.125);
+    color: gray;
+}

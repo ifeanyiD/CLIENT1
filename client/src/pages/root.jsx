@@ -121,9 +121,9 @@ export default function Root() {
 
       <section className='r_contact'>
         <div className='container'>
-              <h1>Having a celebration?</h1>
-              <h2>We are ready to plan your Events</h2>
-              <button><FaArrowTrendUp/><span>Contact us</span></button>
+          <h1>Do you have an <span>Event</span> to celebrate?</h1>
+          <h4>We are ready to plan your Events</h4>
+          <button><FaArrowTrendUp/><span>Contact us</span></button>
         </div>
       </section>
 
