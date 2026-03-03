@@ -72,7 +72,10 @@ header{
                 &.hide{
                     width: 0;
                     text-indent: -1000px;
-                    transition: all .3s linear;
+                    transition: all .1s linear;
+                    li{
+                        border: none;
+                    }
                     li:has(a.active){
                         &::after{
                             width: 0;

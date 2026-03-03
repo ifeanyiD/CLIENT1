@@ -1,10 +1,22 @@
 footer{
     padding-bottom: 0;
-    background-color: black;
-    color: white;
+    background-color: rgb(224,234,241);
+    color: black;
     .container{
         display: block;
         padding-bottom: 20px;
+        .footerH{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: solid rgb(128, 128, 128, 0.3) 2px;
+            padding-bottom: 10px;
+            .f_media{
+                display: flex;
+                gap: 10px;
+            }
+        }
         .footer{
             display: grid;
             grid-template-columns: 1fr auto;
@@ -25,9 +37,9 @@ footer{
             .links{
                 a{  
                     margin-top: 5px;
-                    color: var(--orange3);
+                    color: gray;
                     &:hover{
-                        color: inherit;
+                        color: var(--orange3);
                     }
                 }
                 display: grid;
@@ -37,11 +49,10 @@ footer{
 }
 
 .copyRight{
-    background-color: rgb(20, 20, 20);
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid rgb(255, 255, 255, 0.125);
-    color: gray;
+    border-top: 1px solid rgb(0, 0, 0, 0.2);
+    color: rgb(114, 111, 111);
 }

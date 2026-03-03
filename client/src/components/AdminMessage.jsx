@@ -1,21 +1,105 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+// import { getMessages, deleteMessage, markAsRead } from "../api/messageService";
+import {io} from "socket.io-client";
 
 const dummyMessages = [
-  { id: 1, name: "John", subject: "Booking Inquiry", message: "I want to book an event hall.", isRead: false },
-  { id: 2, name: "Sarah", subject: "Pricing", message: "What are your pricing packages?", isRead: true }
+  { id: 1, name: "John Doe", subject: "Booking Inquiry", message: "I want to book an event hall.", isRead: false },
+  { id: 2, name: "Sarah Lee", subject: "Pricing", message: "What are your pricing packages?", isRead: true },
+  { id: 3, name: "Mike Brown", subject: "Availability", message: "Is the venue free this weekend?", isRead: false },
 ];
 
 const AdminMessages = () => {
-  const [selected, setSelected] = useState(dummyMessages[0]);
+  const [messages, setMessages] = useState(dummyMessages);
+  const [selected, setSelected] = useState(null);
+  const [search, setSearch] = useState("");
+  const [reply, setReply] = useState("");
 
+  const unreadCount = messages.filter(m => !m.isRead).length;
+
+  const filteredMessages = useMemo(() => {
+    return messages.filter(m =>
+      m.name.toLowerCase().includes(search.toLowerCase()) ||
+      m.subject.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search, messages]);
+
+  const handleSelect = (msg) => {
+    setSelected(msg);
+    setMessages(prev =>
+      prev.map(m =>
+        m.id === msg.id ? { ...m, isRead: true } : m
+      )
+    );
+  };
+
+  const handleDelete = (id) => {
+    setMessages(prev => prev.filter(m => m.id !== id));
+    if (selected?.id === id) setSelected(null);
+  };
+
+  const handleReply = () => {
+    if (!reply.trim()) return;
+    alert("Reply sent!");
+    setReply("");
+  };
+
+  // const [messages, setMessages] = useState([]);
+  // const [selected, setSelected] = useState(null);
+
+  // useEffect(() => {
+  //   fetchMessages();
+
+  //   socket.on("receiveMessage", (newMsg) => {
+  //     setMessages(prev => [newMsg, ...prev]);
+  //   });
+
+  //   return () => socket.disconnect();
+  // }, []);
+
+  // const fetchMessages = async () => {
+  //   const res = await getMessages();
+  //   setMessages(res.data);
+  // };
+
+  // const handleSelect = async (msg) => {
+  //   setSelected(msg);
+  //   await markAsRead(msg._id);
+  //   fetchMessages();
+  // };
+
+  // const handleDelete = async (id) => {
+  //   await deleteMessage(id);
+  //   fetchMessages();
+  //   setSelected(null);
+  // };
   return (
     <div className="messages">
+      {/* LEFT PANEL */}
       <div className="messages__list">
-        {dummyMessages.map(msg => (
+        <div className="messages__header">
+          <h3>Inbox</h3>
+          {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+        </div>
+
+        <input
+          type="text"
+          placeholder="Search messages..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          className="search-input"
+        />
+
+        {filteredMessages.length === 0 && (
+          <div className="empty-state">No messages found</div>
+        )}
+
+        {filteredMessages.map(msg => (
           <div
             key={msg.id}
-            className={`message-item ${!msg.isRead ? "unread" : ""}`}
-            onClick={() => setSelected(msg)}
+            className={`message-item 
+              ${!msg.isRead ? "unread" : ""} 
+              ${selected?.id === msg.id ? "active" : ""}`}
+            onClick={() => handleSelect(msg)}
           >
             <h4>{msg.name}</h4>
             <p>{msg.subject}</p>
@@ -23,10 +107,38 @@ const AdminMessages = () => {
         ))}
       </div>
 
+      {/* RIGHT PANEL */}
       <div className="messages__content">
-        <h3>{selected.subject}</h3>
-        <p>{selected.message}</p>
-        <button className="reply-btn">Reply</button>
+        {!selected ? (
+          <div className="empty-state large">
+            Select a message to read
+          </div>
+        ) : (
+          <>
+            <div className="content-header">
+              <h3>{selected.subject}</h3>
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(selected.id)}
+              >
+                Delete
+              </button>
+            </div>
+
+            <p className="message-body">{selected.message}</p>
+
+            <div className="reply-box">
+              <textarea
+                placeholder="Write your reply..."
+                value={reply}
+                onChange={e => setReply(e.target.value)}
+              />
+              <button className="reply-btn" onClick={handleReply}>
+                Send Reply
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

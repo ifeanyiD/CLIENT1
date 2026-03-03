@@ -11,6 +11,7 @@ import { SiAdguard } from "react-icons/si";
 import { IoLinkSharp } from "react-icons/io5";
 import { GrFormView } from "react-icons/gr";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { MdEventSeat } from "react-icons/md";
 import A from "../assets/a.jpg"
 import B from "../assets/b.jpg"
 
@@ -19,12 +20,12 @@ import Modal from '../utils/modal';
 
 const fontSize = 25;
 const icons = [
-                <MdEvent color='purple' fontSize={fontSize}/>, 
+                <MdEvent color='blue' fontSize={fontSize}/>, 
                 <SiManageiq color='blue' fontSize={fontSize}/>,
-                <MdBrandingWatermark color='purple' fontSize={fontSize}/>, 
+                <MdBrandingWatermark color='blue' fontSize={fontSize}/>, 
                 <IoLogoDesignernews color='blue' fontSize={fontSize}/>, 
                 <SiConsul color='blue' fontSize={fontSize}/>, 
-                <CiReceipt color='purple' fontSize={fontSize}/> 
+                <CiReceipt color='blue' fontSize={fontSize}/> 
               ]
 const imgs = [A, B];
   
@@ -45,15 +46,11 @@ export default function Root() {
       <section className='nero_services'>
        <div className='container'>
           <div className='s_header'>
-              <i>About us</i>
-              <h2>We’re committed to delivering the best service for your event</h2>
-              <p>
-                At Eventigo, we offer personalized event planning services to fit your requirements. Your event is unique, and we’re with you every step of the way—from planning to execution.”
-              </p>
+              <h2>We’re <u>committed to delivering</u> the best service for your event</h2>
           </div>
           <div className='s_details'>
               {
-                ["Event Planning", "Event management", "Branding", "Event design", "Project Consultancy", "Event decoration"]
+                ["Event Planning","Event and Wedding Venues", "Event management", "Branding", "Event design", "Project Consultancy", "Event decoration"]
                   .map((event, id)=> <div key={id} className='items'> <span>{icons[id]}</span> <span>{event}</span> </div>)
               }
           </div>
@@ -63,13 +60,18 @@ export default function Root() {
             <div className="container">
                 <div>
                   <SiAdguard color='orange' fontSize={20}/>
-                  <span>100%</span>
+                  <span className='small-text'>100%</span>
                   <label>Reliable Service, guaranteed</label>
                 </div>
                 <div>
                   <FaVoteYea color='orange' fontSize={20}/>
-                  <span>3+</span>
+                  <span className='small-text'>3+</span>
                   <label>Years of Experience</label>
+                </div>
+                <div>
+                  <MdEventSeat color='orange' fontSize={20}/>
+                  <span className='small-text'>10+</span>
+                  <label>Event Covered</label>
                 </div>
             </div>
       </section>
@@ -126,7 +128,21 @@ export default function Root() {
           <button><FaArrowTrendUp/><span>Contact us</span></button>
         </div>
       </section>
-
+      <section className='faqs'>
+        <div className='container'>
+          <h2>FAQS</h2>
+          <div>
+             <details>
+                <summary>What is Chizzy event?</summary>
+                <p>It's ....</p>
+             </details>
+             <details>
+                <summary>What is Chizzy event?</summary>
+                <p>It's ....</p>
+             </details>
+          </div>
+        </div>
+      </section>
       {selectedImg &&
         <Modal setSelectedImg={setSelectedImg}>
           <img src={selectedImg} alt="Preview" />

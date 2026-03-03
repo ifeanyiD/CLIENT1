@@ -5,43 +5,37 @@
             .container{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
+                align-items: center;
                 gap: 25px;
                 min-height: 100vh;
+                background-color: black;
+                border-radius: 30px;
+                color: white;
+                padding: 3.5rem 2rem;
                 .s_header{
                     display: grid;
+                    border-bottom: solid rgb(128, 128, 128, 0.4) 1px;
+                    padding-bottom: 3rem;
+                   h2{
                     text-align: center;
-                    i{
-                        color: var(--orange4);
-                        font-weight: bold;
-                    }
-                    h2{ margin-bottom: 10px;}
+                    u{color: var(--blue);}
+                   }
                 }
                 .s_details{
                     display: grid;
-                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-columns: repeat(2, 1fr);
                     row-gap: 25px;
                     column-gap: 15px;
+                    margin-top: 2.5rem;
                     .items{
-                        background-color: white;
-                        height: 160px;
-                        color: var(--orange1);
                         font-weight: bold;
-                        display: grid;
-                        place-items: center start;
-                        padding: 20px;
+                        display: flex;
                         border-radius: 10px;
-                        transition: all 0.3s ease;
-                        &:hover{
-                            background-color: var(--orange3);
-                            transform: translateY(-5px);
-                            & > span{
-                                color: white!important;
-                            }
-                        }
+                        align-items: center;
+                        gap: 20px;
                     }
                      @media (max-width : 700px){
-                        grid-template-columns: 1fr;        
+                        grid-template-columns: 1fr;
                     }
                 }
             }
@@ -52,16 +46,20 @@
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
-    height: 80px;
+    min-height: 80px;
     display: flex;
     .container{
         display : flex;
         align-items: center;
         justify-content : space-around;
+        gap: 20px;
+        @media (max-width : 680px){
+            flex-direction: column;
+        }
         &::after{
             content: "";
             position: absolute;
-            background-color: rgb(0, 0, 0, 0.7);
+            background-color: rgb(0, 0, 0, 0.95);
             inset: 0;
             width: 100%;
         }
@@ -79,20 +77,24 @@
   .root_portfolio{
     min-height: 70vh;
     display: grid;
+    border-bottom: solid 1px rgb(128, 128, 128, 0.34);
     .container{
         display: grid;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
         gap: 10px;
         .r_portfolio{
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
             gap: 15px;
             .imgs{
-                width: 95%;
+                max-width: 400px;
+                width: 100%;
                 position: relative;
                 img{
-                    width: 100%;
                     height: 100%;
                     object-fit: cover;
                  }
@@ -144,14 +146,18 @@
 
 .testimony{
     .container{
+        min-height: 100svh;
+        min-height: 100dvh;
         min-height: 100vh;
-        display: grid;
-        gap: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
         .scene {
-            --cube-sze : min(90vw, 350px);
-
-            width: var(--cube-sze);
-            height: var(--cube-sze);
+            --cube-size : min(90vw,60vh,350px);
+            width: var(--cube-size);
+            height: var(--cube-size);
             perspective: 1000px;
             margin: auto;
             .cube {
@@ -172,10 +178,10 @@
                     backface-visibility: hidden;
                     border: solid 1px black;
                 }
-                .front  { transform: rotateY(0deg) translateZ(calc(var(--cube-sze)/2)); }
-                .right  { transform: rotateY(90deg) translateZ(calc(var(--cube-sze)/2)); }
-                .back   { transform: rotateY(180deg) translateZ(calc(var(--cube-sze)/2)); }
-                .left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-sze)/2)); }
+                .front  { transform: rotateY(0deg) translateZ(calc(var(--cube-size)/2)); }
+                .right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size)/2)); }
+                .back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size)/2)); }
+                .left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size)/2)); }
             }
         }
         .t_btn{
@@ -192,27 +198,34 @@
                 width: 10px;
                 height: 10px;
                 border-radius: 50%;
-                background-color: red;
             }
         }
+        @media (max-width: 500px) {
+            .scene {
+                transform: scale(0.8);
+            }
+        }
+
     }
 }
 
 .r_contact{
-    background-color: #0077ff;
+    background-image: url("../assets/bg1.jpg");
+    background-position: center;
+    background-size: cover;
     .container{
         display: flex;
         flex-direction: column;
-        min-height: 40vh;
+        min-height: 50vh;
         align-items: center;
         justify-content: center;
         gap: 10px;
         h1,h4{
-            color: rgb(228, 227, 227);
+            color: rgb(253, 253, 253);
         }
         h1{
             & > span{
-                background: linear-gradient(var(--orange1), purple, teal);
+                background: linear-gradient(90deg, var(--orange1), var(--blue));
                 background-clip: text;
                 color: transparent;
             }
@@ -221,8 +234,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            border: solid 1px var(--orange1);
-            background-color: var(--orange3);
             color: black;
             transition: all 0.3s linear;
             &:hover{
@@ -230,4 +241,36 @@
             }
         }
     }
+}
+
+.faqs{
+    .container{
+        display: grid;
+        gap: 20px;
+        div{
+            display: grid;
+            gap: 20px;
+            & > details {
+                border-bottom: solid 1px gray;
+                padding-bottom: 20px;
+                summary{
+                    list-style: none;
+                    cursor: pointer;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    &::after{
+                        content: "\25B6";
+                        margin-left: 8px;
+                        display: inline-block;
+                        transition: transform 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+}
+
+details[open] summary::after{
+    transform: rotate(90deg);
 }

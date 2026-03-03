@@ -5,6 +5,7 @@ import DashboardStats from "../components/DashboardStats";
 import AdminLayout from "../pages/adminLayout";
 import AdminMessages from "../components/AdminMessage";
 import AdminMedia from "../components/AdminMedia";
+import AuthForm from "../components/AuthForm";
 
 
     export const router = createBrowserRouter([
@@ -19,6 +20,10 @@ import AdminMedia from "../components/AdminMedia";
                             element: <Root/>
                         }
                     ]
+                },
+                {   
+                    path : "auth",
+                    element : <AuthForm/>
                 },
                 {
                     element : <AdminLayout/>,
@@ -35,6 +40,14 @@ import AdminMedia from "../components/AdminMedia";
                         {
                             element : <AdminMedia/>,
                             path : "media"
+                        },
+                        {
+                            element : <AdminMedia/>,
+                            path : "members"
+                        },
+                         {
+                            element : <AdminMedia/>,
+                            path : "settings"
                         }
                     ]
                 }

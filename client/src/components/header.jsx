@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { CiMenuBurger } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
+import  {useAuth} from "../hooks/useAuth"
 import "../styles/header.scss";
 
 const active = ({isPending, isActive}) => {
@@ -11,16 +12,28 @@ const active = ({isPending, isActive}) => {
 export default function Header() {
   const [menu, setMenu] = useState(false);
 
+  const {user} = useAuth();
+
+
   return (
     <header>
         <div className='container'>
-            <NavLink className={active}>Logo</NavLink>
+            <NavLink className={active} to={"/"}>Logo</NavLink>
             <ul className={`menu ${menu ? "show" : "hide"}`}>
-                <li><NavLink  className={active} to="/">About</NavLink></li>
+                <li><NavLink  className={active} to="about">About us</NavLink></li>
                 <li><NavLink  className={active} to="portfolio">Portfolio</NavLink></li>
-                <li><NavLink  className={active} to="services">Services</NavLink></li>
-                <li><NavLink  className={active} to="booking">Booking</NavLink></li>
-                <li><NavLink  className={active} to="admin">Admin</NavLink></li>
+                <li><NavLink  className={active} to="services">Our Services</NavLink></li>
+                <li><NavLink  className={active} to="booking">Contact us</NavLink></li>
+                {
+                  user?
+                        user.role === "admin"
+                          ? 
+                        <li><NavLink  className={active} to="admin">Admin</NavLink></li>
+                          :
+                        ""
+                      :
+                    <NavLink to={"/auth"}>Sign in/Sign up</NavLink>
+                }
             </ul>
             {
               !menu ? 

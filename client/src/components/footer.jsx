@@ -1,18 +1,27 @@
 import React from 'react';
-import {NavLink} from "react-router-dom"
+import {NavLink} from "react-router-dom";
+import { FaFacebookF, FaInstagramSquare, FaYoutube } from "react-icons/fa";
 import "../styles/footer.scss";
 
 function Footer() {
     return (
         <footer>
             <div className='container'>
+                <div className='footerH'>
+                    <h4>ChizzyEvent</h4>
+                    <div className='f_media'>
+                        <NavLink><FaFacebookF color='blue'/></NavLink>
+                        <NavLink><FaInstagramSquare color='purple'/></NavLink>
+                        <NavLink><FaYoutube color='red'/></NavLink>
+                    </div>
+                </div>
                 <div className='footer'>
                     <div className='about'>
-                        <h2>ABOUT US</h2>
+                        <h3>ABOUT US</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, laudantium ratione! Amet nobis corporis voluptatum alias excepturi sit consectetur rerum eum obcaecati, dignissimos eaque, ipsam veritatis et nulla cum nihil?</p>
                     </div>
                     <div className='links'>
-                        <h2>LINKS</h2>
+                        <h3>LINKS</h3>
                         <NavLink>Home</NavLink>
                         <NavLink>About</NavLink>
                         <NavLink>Our Services</NavLink>
