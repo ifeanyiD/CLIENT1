@@ -69,6 +69,7 @@ export default  function useAxios() {
                 processQueue(null, refreshRes);
                 return AxiosInstance(originalRequest);
             } catch (refreshErr) {
+                console.log(refreshErr)
                 processQueue(refreshErr, null);
                 setUser(null);
                 setAccessToken(null);

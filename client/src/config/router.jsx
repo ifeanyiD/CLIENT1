@@ -6,11 +6,15 @@ import AdminLayout from "../pages/adminLayout";
 import AdminMessages from "../components/AdminMessage";
 import AdminMedia from "../components/AdminMedia";
 import AuthForm from "../components/AuthForm";
-
+import PersistedRoute from "../auth/persistedRoute";
+import ProtectedRoute from "../auth/protectedRoute";
+import Contact from "../pages/contact";
+import Portfolio from "../pages/portfolio";
 
     export const router = createBrowserRouter([
         {
             path : "/",
+            element : <PersistedRoute/>,
             children : [
                 {
                     element : <MainLayout/>,
@@ -18,6 +22,14 @@ import AuthForm from "../components/AuthForm";
                         {
                             index : true,
                             element: <Root/>
+                        },
+                        {
+                            path : "contact",
+                            element : <Contact/>
+                        },
+                        {
+                            path : "galery",
+                            element : <Portfolio/>
                         }
                     ]
                 },
@@ -26,28 +38,33 @@ import AuthForm from "../components/AuthForm";
                     element : <AuthForm/>
                 },
                 {
-                    element : <AdminLayout/>,
-                    path : "admin",
+                    element : <ProtectedRoute/>,
                     children : [
                         {
-                            element : <DashboardStats/>,
-                            index : true
-                        },
-                        {
-                            element : <AdminMessages/>,
-                            path : "messages"
-                        },
-                        {
-                            element : <AdminMedia/>,
-                            path : "media"
-                        },
-                        {
-                            element : <AdminMedia/>,
-                            path : "members"
-                        },
-                         {
-                            element : <AdminMedia/>,
-                            path : "settings"
+                            element : <AdminLayout/>,
+                            path : "admin",
+                            children : [
+                                {
+                                    element : <DashboardStats/>,
+                                    index : true
+                                },
+                                {
+                                    element : <AdminMessages/>,
+                                    path : "messages"
+                                },
+                                {
+                                    element : <AdminMedia/>,
+                                    path : "media"
+                                },
+                                {
+                                    element : <AdminMedia/>,
+                                    path : "members"
+                                },
+                                    {
+                                    element : <AdminMedia/>,
+                                    path : "settings"
+                                }
+                            ]
                         }
                     ]
                 }

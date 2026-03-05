@@ -1,0 +1,96 @@
+.portfolio {
+  font-family: 'Poppins', sans-serif;
+
+  &__hero {
+    height: 60vh;
+    background: url("/hero-event.jpg") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    background-blend-mode: overlay;
+    background-color: rgba(0,0,0,0.5);
+
+    h1 {
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+
+    button {
+      padding: 0.5rem 1.2rem;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &.active {
+        background: #111;
+        color: white;
+      }
+    }
+  }
+
+  &__grid {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+
+      img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        transition: 0.5s;
+      }
+
+      &__overlay {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        width: 100%;
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: 0.4s;
+      }
+
+      &:hover img {
+        transform: scale(1.1);
+      }
+
+      &:hover .card__overlay {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #111;
+    color: white;
+
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 2rem;
+      border: none;
+      background: gold;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}

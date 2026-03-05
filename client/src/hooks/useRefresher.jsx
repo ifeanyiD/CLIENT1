@@ -1,18 +1,17 @@
 import React from 'react';
 import { useAuth } from './useAuth';
-import API from '../api/axios';
+import { authRefresher } from '../api/api';
 
 export default function useRefresherToken() {
     const {setUser, setAccessToken} = useAuth();
     const refresher = async ()=>{
        try {
-         const response = await API.get("/auth/refresh", {
-            withCredentials : true
-        });
-        setUser(response.data.user);
-        setAccessToken(response.data.accessToken)
-        return response.data.accessToken
+          const response = await authRefresher
+          setUser(response.data.user);
+          setAccessToken(response.data.accessToken)
+          return response.data.accessToken
        } catch (err) {
+          console.log(err)
           setUser(null);
           setAccessToken(null)
           return null

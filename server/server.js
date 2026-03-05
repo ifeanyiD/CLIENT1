@@ -11,6 +11,7 @@ import { adminOnly } from "./middleware/adminMiddleware.js";
 import router from "./routes/messageRoutes.js";
 import cookieParser from "cookie-parser"
 import { verifyToken } from "./config/verifyToken.js";
+import eventRoutes from "./routes/eventRoute.js";
 
 dotenv.config();
 
@@ -30,9 +31,9 @@ app.use(cors({
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: { 
-    origin: "*", 
-    credentials : true
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true
   }
 });
 
@@ -52,6 +53,9 @@ router.use(verifyToken, adminOnly);
 
 // ROUTES
 app.use("/api/messages", messageRoutes);
+
+
+app.use("/api/events", eventRoutes)
 
 // Socket.io
 io.on("connection", (socket) => {

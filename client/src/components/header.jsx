@@ -21,9 +21,9 @@ export default function Header() {
             <NavLink className={active} to={"/"}>Logo</NavLink>
             <ul className={`menu ${menu ? "show" : "hide"}`}>
                 <li><NavLink  className={active} to="about">About us</NavLink></li>
-                <li><NavLink  className={active} to="portfolio">Portfolio</NavLink></li>
+                <li><NavLink  className={active} to="galery">Portfolio</NavLink></li>
                 <li><NavLink  className={active} to="services">Our Services</NavLink></li>
-                <li><NavLink  className={active} to="booking">Contact us</NavLink></li>
+                <li><NavLink  className={active} to="contact">Contact us</NavLink></li>
                 {
                   user?
                         user.role === "admin"
@@ -32,7 +32,7 @@ export default function Header() {
                           :
                         ""
                       :
-                    <NavLink to={"/auth"}>Sign in/Sign up</NavLink>
+                    <NavLink to={"/auth"} className="signIn">Sign in</NavLink>
                 }
             </ul>
             {

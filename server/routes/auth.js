@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.put("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/refresh", refreshTokenHandler);
+router.get("/refresh", refreshTokenHandler);
 router.get("/me", verifyToken, checkAuth);
 
 export default router   

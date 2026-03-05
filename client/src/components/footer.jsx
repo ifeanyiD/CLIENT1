@@ -16,18 +16,12 @@ function Footer() {
                     </div>
                 </div>
                 <div className='footer'>
-                    <div className='about'>
-                        <h3>ABOUT US</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, laudantium ratione! Amet nobis corporis voluptatum alias excepturi sit consectetur rerum eum obcaecati, dignissimos eaque, ipsam veritatis et nulla cum nihil?</p>
-                    </div>
-                    <div className='links'>
                         <h3>LINKS</h3>
                         <NavLink>Home</NavLink>
                         <NavLink>About</NavLink>
                         <NavLink>Our Services</NavLink>
                         <NavLink>Events & Gallery</NavLink>
                         <NavLink>Contact us</NavLink>
-                    </div>
                 </div>
             </div>
             <div className='copyRight'>Copyright &copy; chizzyEvent | All rights reserved</div>

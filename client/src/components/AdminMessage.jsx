@@ -1,65 +1,68 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 // import { getMessages, deleteMessage, markAsRead } from "../api/messageService";
-import {io} from "socket.io-client";
+import { deleteMessage, getMessages, markAsRead } from "../api/api";
+import socket from "../config/socket";
+// const dummyMessages = [
+//   { id: 1, name: "John Doe", subject: "Booking Inquiry", message: "I want to book an event hall.", isRead: false },
+//   { id: 2, name: "Sarah Lee", subject: "Pricing", message: "What are your pricing packages?", isRead: true },
+//   { id: 3, name: "Mike Brown", subject: "Availability", message: "Is the venue free this weekend?", isRead: false },
+// ];
 
-const dummyMessages = [
-  { id: 1, name: "John Doe", subject: "Booking Inquiry", message: "I want to book an event hall.", isRead: false },
-  { id: 2, name: "Sarah Lee", subject: "Pricing", message: "What are your pricing packages?", isRead: true },
-  { id: 3, name: "Mike Brown", subject: "Availability", message: "Is the venue free this weekend?", isRead: false },
-];
 
 const AdminMessages = () => {
-  const [messages, setMessages] = useState(dummyMessages);
+  const [messages, setMessages] = useState([]);
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState("");
   const [reply, setReply] = useState("");
+  
 
-  const unreadCount = messages.filter(m => !m.isRead).length;
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await getMessages();
+      setMessages([res.data]);
+    };
+    fetchMessages();
+
+    socket.on("receiveMessage", (newMsg) => {
+      setMessages(prev => [newMsg, ...prev]);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, []);
+
+  const unreadCount = messages.filter(m => !m?.isRead)?.length;
 
   const filteredMessages = useMemo(() => {
-    return messages.filter(m =>
-      m.name.toLowerCase().includes(search.toLowerCase()) ||
-      m.subject.toLowerCase().includes(search.toLowerCase())
+    return messages?.filter(m =>
+      m?.name.toLowerCase().includes(search.toLowerCase()) ||
+      m?.subject.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, messages]);
 
-  const handleSelect = (msg) => {
+  const handleSelect = async (msg) => {
     setSelected(msg);
+    await markAsRead(msg)
     setMessages(prev =>
       prev.map(m =>
-        m.id === msg.id ? { ...m, isRead: true } : m
+        m._id === msg._id ? { ...m, isRead: true } : m
       )
     );
   };
 
-  const handleDelete = (id) => {
-    setMessages(prev => prev.filter(m => m.id !== id));
-    if (selected?.id === id) setSelected(null);
+  const handleDelete = async (msg) => {
+    await deleteMessage(msg);
+    console.log("It stopped here")
+    setMessages(prev => prev.filter(m => m._id !== msg._id));
+    if (selected?._id === msg._id) setSelected(null);
   };
 
-  const handleReply = () => {
+  const handleReply = ()=> {
     if (!reply.trim()) return;
     alert("Reply sent!");
     setReply("");
   };
-
-  // const [messages, setMessages] = useState([]);
-  // const [selected, setSelected] = useState(null);
-
-  // useEffect(() => {
-  //   fetchMessages();
-
-  //   socket.on("receiveMessage", (newMsg) => {
-  //     setMessages(prev => [newMsg, ...prev]);
-  //   });
-
-  //   return () => socket.disconnect();
-  // }, []);
-
-  // const fetchMessages = async () => {
-  //   const res = await getMessages();
-  //   setMessages(res.data);
-  // };
 
   // const handleSelect = async (msg) => {
   //   setSelected(msg);
@@ -89,13 +92,13 @@ const AdminMessages = () => {
           className="search-input"
         />
 
-        {filteredMessages.length === 0 && (
+        {filteredMessages?.length === 0 && (
           <div className="empty-state">No messages found</div>
         )}
 
-        {filteredMessages.map(msg => (
+        {filteredMessages?.map(msg => (
           <div
-            key={msg.id}
+            key={msg._id}
             className={`message-item 
               ${!msg.isRead ? "unread" : ""} 
               ${selected?.id === msg.id ? "active" : ""}`}
@@ -107,7 +110,7 @@ const AdminMessages = () => {
         ))}
       </div>
 
-      {/* RIGHT PANEL */}
+      {/* R IGHT PANEL */}
       <div className="messages__content">
         {!selected ? (
           <div className="empty-state large">

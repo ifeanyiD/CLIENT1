@@ -52,6 +52,7 @@ header{
                 top: var(--header_height);
                 height: max-content;
                 z-index: 9999;
+                
                 &.show{
                     width: 100%;
                     transition: width .3s linear;
@@ -89,6 +90,23 @@ header{
                 cursor : pointer;
                 
             }
+        }
+    }
+}
+
+.signIn{
+    color: var(--orange3);
+    font-weight: bold;
+}
+
+@media (min-width : 768px){
+    .signIn{
+        background-color: var(--orange3);
+        padding: 6px 10px;
+        border-radius: 5px;
+        color: white;
+        &:hover{
+            background-color: var(--orange1);
         }
     }
 }

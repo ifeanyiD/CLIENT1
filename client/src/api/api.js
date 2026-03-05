@@ -1,9 +1,9 @@
 import API from "./axios";
 
 
-export const checkAuth = API.get("/auth/me")
+export const authRefresher = API.get("/auth/refresh")
 
 
-export const getMessages = () => API.get(API);
-export const deleteMessage = (id) => API.delete(`${API}/${id}`);
-export const markAsRead = (id) => API.put(`${API}/${id}/read`);
+export const getMessages = () => API.get("/messages");
+export const deleteMessage = (msg) => API.delete(`/messages/${msg._id}`);
+export const markAsRead = (msg) => API.put(`/messages/${msg._id}/read`);

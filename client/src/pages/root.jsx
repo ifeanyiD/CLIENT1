@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Nero from '../components/nero';
+import {useNavigate} from "react-router-dom";
 import { MdEvent } from "react-icons/md";
 import { MdBrandingWatermark } from "react-icons/md";
 import { IoLogoDesignernews } from "react-icons/io5";
@@ -39,6 +40,8 @@ export default function Root() {
     let indexUpdate =  index === 3 ? 0 : index + 1
     setIndex(indexUpdate)
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className='root'>
@@ -125,7 +128,10 @@ export default function Root() {
         <div className='container'>
           <h1>Do you have an <span>Event</span> to celebrate?</h1>
           <h4>We are ready to plan your Events</h4>
-          <button><FaArrowTrendUp/><span>Contact us</span></button>
+          <button onClick={()=> navigate("/contact")}>
+            <FaArrowTrendUp/>
+            <span>Contact us</span>
+          </button>
         </div>
       </section>
       <section className='faqs'>
