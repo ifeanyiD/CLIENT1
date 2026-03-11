@@ -1,19 +1,19 @@
 const DashboardStats = () => {
   return (
-    <div className="stats">
+    <div className="container stats">
       <div className="card">
-        <h3>Total Messages</h3>
-        <p>124</p>
+        <h4>Total Messages</h4>
+        <span className="small-text">124</span>
       </div>
 
       <div className="card">
-        <h3>Unread Messages</h3>
-        <p>12</p>
+        <h4>Unread Messages</h4>
+        <span className="small-text">12</span>
       </div>
 
       <div className="card">
-        <h3>Last Updated Image</h3>
-        <p>Hero Banner</p>
+        <h4>Last Updated Image</h4>
+        <span className="small-text">Hero Banner</span>
       </div>
     </div>
   );

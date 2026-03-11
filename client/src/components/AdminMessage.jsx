@@ -81,7 +81,7 @@ const AdminMessages = () => {
       <div className="messages__list">
         <div className="messages__header">
           <h3>Inbox</h3>
-          {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+          {unreadCount > 0 && <span className="small-text badge">{unreadCount}</span>}
         </div>
 
         <input

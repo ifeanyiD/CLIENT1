@@ -3,7 +3,7 @@ import { useAuth } from './useAuth';
 import { authRefresher } from '../api/api';
 
 export default function useRefresherToken() {
-    const {setUser, setAccessToken} = useAuth();
+    const {setUser, setAccessToken, setLoading} = useAuth();
     const refresher = async ()=>{
        try {
           const response = await authRefresher
@@ -15,6 +15,9 @@ export default function useRefresherToken() {
           setUser(null);
           setAccessToken(null)
           return null
+       }
+       finally{
+         setLoading(false)
        }
   }
 

@@ -5,7 +5,7 @@ import { generateAccessToken, generateRefreshToken } from "../utils/generateToke
 
 export const refreshTokenHandler = async (req, res) => {
   const token = req.cookies.jwt
-  
+ 
   if(!token) return res.status(403).json({message: "No referesh token"});
   
   try{
@@ -19,7 +19,7 @@ export const refreshTokenHandler = async (req, res) => {
     
     const payload = {id: user._id.toString(), role: user.role}
     
-    const refreshToken =  generateRefreshToken(user._id)
+    const refreshToken =  generateRefreshToken(user)
 
       // Set refresh cookie again
     res.cookie("jwt", refreshToken, {
@@ -30,7 +30,7 @@ export const refreshTokenHandler = async (req, res) => {
     });
     
     return res.json({
-            accessToken : generateAccessToken(user._id),  
+            accessToken : generateAccessToken(user),  
             user : payload
         })
     }

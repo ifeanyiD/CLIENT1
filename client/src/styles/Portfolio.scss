@@ -3,7 +3,7 @@
 
   &__hero {
     height: 60vh;
-    background: url("/hero-event.jpg") center/cover no-repeat;
+    background: url("../assets/a.jpg") center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,7 +31,7 @@
       background: white;
       cursor: pointer;
       transition: 0.3s;
-
+      color: gray;
       &.active {
         background: #111;
         color: white;
@@ -86,11 +86,15 @@
 
     button {
       margin-top: 1rem;
-      padding: 0.8rem 2rem;
-      border: none;
-      background: gold;
-      cursor: pointer;
       font-weight: bold;
     }
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .portfolio__grid img {
+    height: 220px;
   }
 }

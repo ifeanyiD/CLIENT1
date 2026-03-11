@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { CiMenuBurger } from "react-icons/ci";
-import { MdCancel } from "react-icons/md";
 import  {useAuth} from "../hooks/useAuth"
 import "../styles/header.scss";
+import MobileMenu from './mobileMenu';
 
 const active = ({isPending, isActive}) => {
     return isPending ? "" : isActive ? "active" : ""
 }
 
 export default function Header() {
-  const [menu, setMenu] = useState(false);
 
   const {user} = useAuth();
 
@@ -19,28 +16,21 @@ export default function Header() {
     <header>
         <div className='container'>
             <NavLink className={active} to={"/"}>Logo</NavLink>
-            <ul className={`menu ${menu ? "show" : "hide"}`}>
-                <li><NavLink  className={active} to="about">About us</NavLink></li>
-                <li><NavLink  className={active} to="galery">Portfolio</NavLink></li>
-                <li><NavLink  className={active} to="services">Our Services</NavLink></li>
+            <ul className="menu">
+                <li><NavLink  className={active} to="aboutUs">About us</NavLink></li>
+                <li><NavLink  className={active} to="gallery">Portfolio</NavLink></li>
                 <li><NavLink  className={active} to="contact">Contact us</NavLink></li>
                 {
                   user?
-                        user.role === "admin"
-                          ? 
-                        <li><NavLink  className={active} to="admin">Admin</NavLink></li>
+                    user.role === "admin" ? 
+                      <li><NavLink  className={active} to="admin">Admin</NavLink></li>
                           :
                         ""
                       :
                     <NavLink to={"/auth"} className="signIn">Sign in</NavLink>
                 }
             </ul>
-            {
-              !menu ? 
-                <span className='mobile_menu' onClick={()=>setMenu(true)}><CiMenuBurger/></span>
-                :
-                <span className="mobile_menu" onClick={()=>setMenu(false)}><MdCancel/></span>
-            }
+            <MobileMenu/>
         </div>
     </header>
   );

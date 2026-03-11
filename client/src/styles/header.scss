@@ -4,109 +4,15 @@ header{
         align-items: center;
         justify-content: space-between;
         height: var(--header_height);
-        ul{
+        // MENU
+        .menu{
             display: flex;
             align-items: center;
-            gap: 20px;
-            li{
-                display: flex;
-                padding: 5px 2px;
-                position: relative;
-                &::after{
-                    content: "";
-                    position: absolute;
-                    width: 0;
-                    height: 5px;
-                    background-color: var(--orange3);
-                    left: 0;
-                    bottom: 0;
-                    transition: width 0.2s linear;
-                }
-                &:has(a.active){
-                    &::after{
-                        width: 100%;
-                    }
-                }
-                &:not(&:has(a.active)):has(a:hover){
-                    &::after{
-                        width: 100%;
-                    }
-                }
-                a{
-                    font-weight: 700;
-                }
+            gap: 15px;
+            font-weight: 700;
+            @media (max-width: 768px) {
+               display: none;
             }
-        }
-        .mobile_menu{
-            display: none;
-        }
-        @media (max-width: 768px) {
-            ul{ display : none}
-            .menu{
-                display: grid;
-                gap: 15px;
-                background-color: darkblue;
-                color: white;
-                position: absolute;
-                left: 0;
-                top: var(--header_height);
-                height: max-content;
-                z-index: 9999;
-                
-                &.show{
-                    width: 100%;
-                    transition: width .3s linear;
-                    padding: 15px;
-                }
-                
-               
-                li{
-                    border-bottom: solid 1px white;
-                    a{
-                        color: white;
-                        &.active{
-                            color: var(--orange3);
-                        }
-                    }
-                }
-            
-                &.hide{
-                    width: 0;
-                    text-indent: -1000px;
-                    transition: all .1s linear;
-                    li{
-                        border: none;
-                    }
-                    li:has(a.active){
-                        &::after{
-                            width: 0;
-                        }
-                    }
-                }
-            }
-            .mobile_menu{
-                display : block;
-                font-size : 2.5rem;
-                cursor : pointer;
-                
-            }
-        }
-    }
-}
-
-.signIn{
-    color: var(--orange3);
-    font-weight: bold;
-}
-
-@media (min-width : 768px){
-    .signIn{
-        background-color: var(--orange3);
-        padding: 6px 10px;
-        border-radius: 5px;
-        color: white;
-        &:hover{
-            background-color: var(--orange1);
         }
     }
 }

@@ -1,0 +1,81 @@
+.about {
+
+  font-family: "Poppins", sans-serif;
+
+  /* HERO */
+
+  &__hero {
+    height: 70vh;
+    background: url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+
+    &-content {
+      background: rgba(0,0,0,0.5);
+      padding: 40px;
+      border-radius: 10px;
+
+      h1 {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      button {
+        border: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+/* TEAM */
+
+.about__team {
+  padding: 80px;
+  text-align: center;
+}
+
+.team {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+
+  .member {
+    width: 220px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+}
+
+
+/* CTA */
+
+.about__cta {
+  background: #222;
+  color: white;
+  padding: 80px;
+  text-align: center;
+
+  button {
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+}

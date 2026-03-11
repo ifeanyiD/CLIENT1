@@ -1,17 +1,18 @@
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 import http from "http";
 import { Server } from "socket.io";
 import authRoutes from "./routes/auth.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import Message from "./models/Message.js";
 import { adminOnly } from "./middleware/adminMiddleware.js";
-import router from "./routes/messageRoutes.js";
 import cookieParser from "cookie-parser"
 import { verifyToken } from "./config/verifyToken.js";
 import eventRoutes from "./routes/eventRoute.js";
+import uploader  from "./routes/uploadRoute.js";
+import { roleCheck } from "./middleware/roleCheck.js";
 
 dotenv.config();
 
@@ -49,11 +50,11 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/api/auth", authRoutes);
 
 // Protected Route
-router.use(verifyToken, adminOnly);
+app.use(verifyToken, adminOnly);
 
 // ROUTES
 app.use("/api/messages", messageRoutes);
-
+app.use("/api/image", roleCheck("admin", "vendor"), uploader);
 
 app.use("/api/events", eventRoutes)
 

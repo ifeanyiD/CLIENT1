@@ -1,93 +1,55 @@
-import React, { useEffect, useRef } from 'react';
-import  { jwtDecode }  from "jwt-decode";
-import { useAuth } from './useAuth';
-import useRefresherToken from './useRefresher';
-import { AxiosInstance } from '../api/axios';
+import { useEffect } from "react";
+import { AxiosInstance } from "../api/axios";
+import { useAuth } from "./useAuth";
+import useRefresherToken from "./useRefresher";
 
-export default  function useAxios() {
-    const {accessToken, setAccessToken, setUser} = useAuth();
-    const refresh = useRefresherToken();
+export default function useAxios() {
 
-    let failedQueue = [];
-    const isRefreshing = useRef(false);
-
-    function processQueue(error, token = null) {
-        failedQueue.forEach(p => (error ? p.reject(error) : p.resolve(token)));
-        failedQueue = [];
-    }
+  const { accessToken, setAccessToken } = useAuth();
+  const refresh = useRefresherToken();
 
   useEffect(() => {
-    const request = AxiosInstance.interceptors.request.use(
-       async (config)=>{
-            const token  = accessToken;
-            if(!token) return config;
-            if(token){
-                const {exp} = jwtDecode(token);
-                const isExpired = exp * 1000 < Date.now();
 
-                if(isExpired){
-                    const newToken = await refresh();
-                
-                    config.headers["Authorization"] = `Bearer ${newToken}`;
-                }
-                else{
-                    config.headers["Authorization"] = `Bearer ${token}`;
-                }
-            }
-            return config;
-        },
-        (error)=> Promise.reject(error)
+    const requestIntercept = AxiosInstance.interceptors.request.use(
+      config => {
+
+        if (!config.headers["Authorization"] && accessToken) {
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
+        }
+
+        return config;
+      }
     );
 
-    const response = AxiosInstance.interceptors.response.use(
-        (res) => res,
-        async (err)=>{
-            const originalRequest = err?.config;
+    const responseIntercept = AxiosInstance.interceptors.response.use(
+      res => res,
+      async err => {
 
-           if (err?.response?.status === 403) {
-                setUser(null); // logout user
-                setAccessToken(null);
-                return Promise.resolve(); // avoid crashes  
-            }
+        const prevRequest = err?.config;
 
-            if(err?.response?.status === 401 && !originalRequest?._retry){
-                originalRequest._retry = true;
-                
-                if (isRefreshing.target) {
-                    return new Promise((resolve, reject) => {
-                        failedQueue.push({ resolve, reject });
-                    }).then(token => {
-                        originalRequest.headers["Authorization"] = `Bearer ${token}`;
-                        return AxiosInstance(originalRequest);
-                    });
-                }
+        if (err?.response?.status === 401 && !prevRequest?.sent) {
 
-                isRefreshing.target = true;
-            try {
-                const refreshRes = await refresh();
-                AxiosInstance.defaults.headers["Authorization"] = `Bearer ${refreshRes}`;
-                processQueue(null, refreshRes);
-                return AxiosInstance(originalRequest);
-            } catch (refreshErr) {
-                console.log(refreshErr)
-                processQueue(refreshErr, null);
-                setUser(null);
-                setAccessToken(null);
-                return Promise.resolve(); 
-            } finally {
-                isRefreshing.target = false;
-            }
+          prevRequest.sent = true;
+
+          const newToken = await refresh();
+
+          setAccessToken(newToken);
+
+          prevRequest.headers["Authorization"] = `Bearer ${newToken}`;
+
+          return AxiosInstance(prevRequest);
+        }
+
+        return Promise.reject(err);
       }
-        return Promise.reject(err)
-    })
+    );
 
     return () => {
-        AxiosInstance.interceptors.request.eject(request);
-        AxiosInstance.interceptors.response.eject(response);
+      AxiosInstance.interceptors.request.eject(requestIntercept);
+      AxiosInstance.interceptors.response.eject(responseIntercept);
     };
-  }, [accessToken, refresh])
-    
-    
 
-  return AxiosInstance
+  }, [accessToken, refresh, setAccessToken]);
+
+  return AxiosInstance;
 }

@@ -10,6 +10,9 @@ import PersistedRoute from "../auth/persistedRoute";
 import ProtectedRoute from "../auth/protectedRoute";
 import Contact from "../pages/contact";
 import Portfolio from "../pages/portfolio";
+import AboutUs from "../components/AboutUs";
+import Upload from "../components/upload";
+
 
     export const router = createBrowserRouter([
         {
@@ -28,8 +31,12 @@ import Portfolio from "../pages/portfolio";
                             element : <Contact/>
                         },
                         {
-                            path : "galery",
+                            path : "gallery",
                             element : <Portfolio/>
+                        },
+                        {
+                            path : "aboutUs",
+                            element : <AboutUs/>
                         }
                     ]
                 },
@@ -38,7 +45,7 @@ import Portfolio from "../pages/portfolio";
                     element : <AuthForm/>
                 },
                 {
-                    element : <ProtectedRoute/>,
+                    element : <ProtectedRoute allowedRoles= {["admin", "vendor", "tech"]}/>,
                     children : [
                         {
                             element : <AdminLayout/>,
@@ -47,6 +54,10 @@ import Portfolio from "../pages/portfolio";
                                 {
                                     element : <DashboardStats/>,
                                     index : true
+                                },
+                                {
+                                    element : <Upload/>,
+                                    path : "upload"
                                 },
                                 {
                                     element : <AdminMessages/>,

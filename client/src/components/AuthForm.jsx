@@ -21,14 +21,18 @@ const AuthForm = () => {
   });
 
   const handleLogin = async (e) =>{
-    e.preventDefault();
-    const {data} = await API.post("/auth/login", {
-      email : Login.email,
-      password : Login.pwd
-    });
-    setAccessToken(data.accessToken);
-    setUser(data.user);
-    navigate("/")
+    try {
+      e.preventDefault();
+      const {data} = await API.post("/auth/login", {
+        email : Login.email,
+        password : Login.pwd
+      });
+      setAccessToken(data.accessToken);
+      setUser(data.user);
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+    }
   }
   const onchangeLogin = e => {
     setLogin({...Login, [e.target.name] : e.target.value})
@@ -39,9 +43,13 @@ const AuthForm = () => {
   const handleCreateAccount = async (e)=>{
     e.preventDefault();
     const {email, pwd, name} = signUp;
-    const res = await API.put("/auth/register", {email, password : pwd, name});
-    
-    console.log(res);
+    try {
+      const res = await API.put("/auth/register", {email, password : pwd, name});
+      console.log(res);
+      
+    } catch (error) {
+      console.log(error)
+    }    
   }
 
   const toggleForm = () => setIsLogin(!isLogin);

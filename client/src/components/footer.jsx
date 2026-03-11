@@ -1,32 +1,68 @@
-import React from 'react';
-import {NavLink} from "react-router-dom";
-import { FaFacebookF, FaInstagramSquare, FaYoutube } from "react-icons/fa";
 import "../styles/footer.scss";
+import { FaFacebook, FaInstagram, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
-function Footer() {
-    return (
-        <footer>
-            <div className='container'>
-                <div className='footerH'>
-                    <h4>ChizzyEvent</h4>
-                    <div className='f_media'>
-                        <NavLink><FaFacebookF color='blue'/></NavLink>
-                        <NavLink><FaInstagramSquare color='purple'/></NavLink>
-                        <NavLink><FaYoutube color='red'/></NavLink>
-                    </div>
-                </div>
-                <div className='footer'>
-                        <h3>LINKS</h3>
-                        <NavLink>Home</NavLink>
-                        <NavLink>About</NavLink>
-                        <NavLink>Our Services</NavLink>
-                        <NavLink>Events & Gallery</NavLink>
-                        <NavLink>Contact us</NavLink>
-                </div>
-            </div>
-            <div className='copyRight'>Copyright &copy; chizzyEvent | All rights reserved</div>
-        </footer>
-    );
-}
+const Footer = () => {
+  return (
+    <footer className="footer">
+
+      <div className="footer__container">
+
+        {/* COMPANY INFO */}
+        <div className="footer__section">
+          <h3>EventMaster</h3>
+          <p>
+            We create unforgettable events from weddings to corporate
+            celebrations. Our mission is to turn your vision into reality.
+          </p>
+        </div>
+
+        {/* QUICK LINKS */}
+        <div className="footer__section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li>Home</li>
+            <li>About Us</li>
+            <li>Services</li>
+            <li>Events</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+
+        {/* SERVICES */}
+        <div className="footer__section">
+          <h4>Services</h4>
+          <ul>
+            <li>Wedding Planning</li>
+            <li>Corporate Events</li>
+            <li>Birthday Parties</li>
+            <li>Concert Management</li>
+          </ul>
+        </div>
+
+        {/* CONTACT */}
+        <div className="footer__section">
+          <h4>Contact</h4>
+
+          <p><FaPhone /> +234 913 195 6559</p>
+          <p><FaEnvelope /> info@eventmaster.com</p>
+          <p><FaMapMarkerAlt /> Lagos, Nigeria</p>
+
+          <div className="footer__socials">
+            <FaFacebook />
+            <FaInstagram />
+          </div>
+        </div>
+
+      </div>
+
+
+      {/* COPYRIGHT */}
+      <div className="footer__bottom">
+        <p>© {new Date().getFullYear()} EventMaster. All Rights Reserved.</p>
+      </div>
+
+    </footer>
+  );
+};
 
 export default Footer;

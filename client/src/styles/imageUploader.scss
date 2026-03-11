@@ -1,0 +1,46 @@
+.image-uploader {
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 1rem;
+
+    .preview-wrapper {
+      position: relative;
+
+      .preview-img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+      }
+
+      .delete-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 0, 0, 0.7);
+        border: none;
+        color: white;
+        font-size: 18px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        line-height: 0;
+        text-align: center;
+        transition: background 0.2s;
+
+        &:hover {
+          background: red;
+        }
+      }
+    }
+  }
+
+  .error {
+    color: red;
+    margin-top: 0.5rem;
+  }
+}

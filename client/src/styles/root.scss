@@ -1,82 +1,73 @@
 .root{
-    .nero_services{
-        display: grid;
-        background-color:rgb(230,230,249);
-            .container{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 25px;
-                min-height: 100vh;
-                background-color: black;
-                border-radius: 30px;
-                color: white;
-                padding: 3.5rem 2rem;
-                .s_header{
-                    display: grid;
-                    border-bottom: solid rgb(128, 128, 128, 0.4) 1px;
-                    padding-bottom: 3rem;
-                   h2{
-                    text-align: center;
-                    u{color: var(--blue);}
-                   }
-                }
-                .s_details{
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    row-gap: 25px;
-                    column-gap: 15px;
-                    margin-top: 2.5rem;
-                    .items{
-                        font-weight: bold;
-                        display: flex;
-                        border-radius: 10px;
-                        align-items: center;
-                        gap: 20px;
-                    }
-                     @media (max-width : 700px){
-                        grid-template-columns: 1fr;
-                    }
-                }
-            }
-        }
-  .root_divider{
-    background-image: url("/assets/birthday.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    min-height: 80px;
-    display: flex;
-    .container{
-        display : flex;
-        align-items: center;
-        justify-content : space-around;
-        gap: 20px;
-        @media (max-width : 680px){
-            flex-direction: column;
-        }
-        &::after{
-            content: "";
-            position: absolute;
-            background-color: rgb(0, 0, 0, 0.95);
-            inset: 0;
-            width: 100%;
-        }
-        & > div {
-            display : flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2px;
-            color: white;
-            z-index: 1;
-        }
+
+/* STORY */
+  &__story {
+    padding: 80px 20px;
+    text-align: center;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: auto;
+      color: #666;
+    }
+  }
+
+  /* STATS */
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    padding: 60px;
+    background: #f7f7f7;
+    text-align: center;
+
+    .stat {
+
+      h3 {
+        font-size: 36px;
+        color: #ff5a5f;
+      }
+
+      p {
+        color: #555;
+      }
     }
   } 
+
+     /* SERVICES */
+
+    &__services {
+        text-align: center;
+        margin: 80px 0;
+        h2 {
+            margin-bottom: 40px;
+        }
+    }
+
+    .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+        gap: 25px;
+
+        .service {
+            display: grid;
+            place-items: center;
+            gap: 10px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            p{color: grey;}
+        }
+    }
+
+  //Portfolio
   .root_portfolio{
     min-height: 70vh;
-    display: grid;
+    text-align: center;
     border-bottom: solid 1px rgb(128, 128, 128, 0.34);
     .container{
         display: grid;
@@ -84,9 +75,18 @@
         justify-content: center;
         gap: 20px;
         gap: 10px;
+        .title{
+            display: grid;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            h3{
+                text-align: center;
+            }
+        }
         .r_portfolio{
+            margin-top: 40px;
             max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
             gap: 15px;
@@ -143,23 +143,23 @@
   }
 }
 
-
+// Testimony
 .testimony{
     .container{
-        min-height: 100svh;
-        min-height: 100dvh;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+        min-height: 90dvh;
+        min-height: 90vh;
+        display: grid;
         gap: 5px;
         align-items: center;
         justify-content: center;
+        h2{
+            text-align: center;
+        }
         .scene {
-            --cube-size : min(90vw,60vh,350px);
+            --cube-size : min(90vw, 60vh, 350px);
             width: var(--cube-size);
             height: var(--cube-size);
             perspective: 1000px;
-            margin: auto;
             .cube {
                 width: 100%;
                 height: 100%;
@@ -209,6 +209,7 @@
     }
 }
 
+// CONTACT
 .r_contact{
     background-image: url("../assets/bg1.jpg");
     background-position: center;
@@ -222,6 +223,7 @@
         gap: 10px;
         h1,h4{
             color: rgb(253, 253, 253);
+            text-align: center;
         }
         h1{
             & > span{
@@ -234,8 +236,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            color: black;
-            transition: all 0.3s linear;
+            transition: all 0.4s linear;
             &:hover{
                 flex-direction: row-reverse;
             }
@@ -243,6 +244,7 @@
     }
 }
 
+// FAQ
 .faqs{
     .container{
         display: grid;

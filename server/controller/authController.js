@@ -8,7 +8,6 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const userExists = await User.findOne({ email })
-    
     if (userExists) {
       return res.status(400).json({ message: "User already exists" })
     }
@@ -21,7 +20,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword
     })
 
-    res.status(201);
+    res.status(201).json({message : "Successfully register"});
 
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -36,8 +35,8 @@ export const loginUser = async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       
-      const accessToken = generateAccessToken(user._id);
-      const refreshToken = generateRefreshToken(user._id);
+      const accessToken = generateAccessToken(user);
+      const refreshToken = generateRefreshToken(user);
 
       user.refreshToken = refreshToken;
       await user.save();

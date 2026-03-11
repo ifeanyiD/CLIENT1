@@ -82,22 +82,10 @@ input:focus {
   outline: none;
 }
 
-button {
-  padding: 0.8rem;
-  border: none;
-  border-radius: 8px;
-  background: #4caf50;
-  color: white;
-  cursor: pointer;
-}
-
 .back button {
   background: #2196f3;
 }
 
-button:hover {
-  opacity: 0.9;
-}
 
 .toggle-text {
   margin-top: 1rem;
