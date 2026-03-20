@@ -3,19 +3,15 @@ import Message from "../models/Message.js";
 //CREATE MESSAGE
 export const createMessage = async (req, res) => {
   try {
-    const { name, subject, message } = req.body;
-
-    const newMessage = await Message.create({
+    const { name, subject, email, message } = req.body;
+    await Message.create({
       name,
       subject,
       email,
       message,
     });
 
-    const io = req.app.get("io");
-    io.emit("receiveMessage", newMessage);
-
-    res.status(201).json(newMessage);
+    res.status(201).json({message : "Sent!!"});
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -24,35 +20,36 @@ export const createMessage = async (req, res) => {
 
 //GET ALL MESSAGES
 export const getAllMessages = async(req, res)=>{
-    if (process.env.NODE_ENV !== "production") {
-        return res.status(200).json({
-        _id: "dev-admin-1",
-        sender: "admin",
-        email : "engineerdavid@gmail.com",
-        isRead : false,
-        name : "David",
-        subject : "Booking inquiry",
-        message: "🚀 This is a DEV test admin message",
-        createdAt: new Date()
-        });
+    try {
+      const messages = await Message.find().sort({ createdAt: -1 });
+      res.json(messages);
+    } catch (error) {
+      console.log(error)
     }
-    const messages = await Message.find().sort({ createdAt: -1 });
-    res.json(messages);
 }
 
 //MARK READ MESSAGES
 export const readMessages = async (req,res) =>{
-     const message = await Message.findByIdAndUpdate(
-        req.params.id,
-        { isRead: true },
-        { new: true }
-      );
+     try {
+        const message = await Message.findByIdAndUpdate(
+          req.params.id,
+          { isRead: true },
+          { new: true }
+        );
+        console.log(message)
       res.json(message);
+     } catch (error) {
+      console.log(error)
+      res.status(500).json({message : "Error occured"})
+     }
 }
 
 //DELETE MESSAGES
 export const deleteMessage = async (req, res) => {
-  console.log(req.params.id)
-  await Message.findByIdAndDelete(req.params.id);
-  res.json({ message: "Deleted successfully" });
+  try {
+    await Message.findByIdAndDelete(req.params.id);
+    res.json({ message: "Deleted successfully" });
+  } catch (error) {
+    console.log(error)
+  }
 };

@@ -1,25 +1,25 @@
 import { useState, useMemo, useEffect } from "react";
-// import { getMessages, deleteMessage, markAsRead } from "../api/messageService";
-import { deleteMessage, getMessages, markAsRead } from "../api/api";
 import socket from "../config/socket";
-// const dummyMessages = [
-//   { id: 1, name: "John Doe", subject: "Booking Inquiry", message: "I want to book an event hall.", isRead: false },
-//   { id: 2, name: "Sarah Lee", subject: "Pricing", message: "What are your pricing packages?", isRead: true },
-//   { id: 3, name: "Mike Brown", subject: "Availability", message: "Is the venue free this weekend?", isRead: false },
-// ];
-
+import useAxios from "../hooks/useAxios";
 
 const AdminMessages = () => {
+  
+  const axios = useAxios();
+
   const [messages, setMessages] = useState([]);
   const [selected, setSelected] = useState(null);
   const [search, setSearch] = useState("");
   const [reply, setReply] = useState("");
-  
+
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const res = await getMessages();
-      setMessages([res.data]);
+     try {
+       const res = await axios.get("/messages");
+       setMessages(res.data);
+     } catch (error) {
+      console.log(error)
+     }
     };
     fetchMessages();
 
@@ -43,19 +43,28 @@ const AdminMessages = () => {
 
   const handleSelect = async (msg) => {
     setSelected(msg);
-    await markAsRead(msg)
-    setMessages(prev =>
-      prev.map(m =>
-        m._id === msg._id ? { ...m, isRead: true } : m
-      )
-    );
+    if(msg?.isRead) return;
+    try {
+      await axios.put(`/messages/${msg._id}/read`);
+      setMessages(prev =>
+        prev.map(m =>
+          m._id === msg._id ? { ...m, isRead: true } : m
+        )
+      );
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleDelete = async (msg) => {
-    await deleteMessage(msg);
-    console.log("It stopped here")
-    setMessages(prev => prev.filter(m => m._id !== msg._id));
-    if (selected?._id === msg._id) setSelected(null);
+    try {
+      const {data} = await axios.delete(`/messages/${msg._id}`)
+      console.log(data)
+      setMessages(prev => prev.filter(m => m._id !== msg._id));
+      if (selected?._id === msg._id) setSelected(null);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   const handleReply = ()=> {
@@ -64,17 +73,6 @@ const AdminMessages = () => {
     setReply("");
   };
 
-  // const handleSelect = async (msg) => {
-  //   setSelected(msg);
-  //   await markAsRead(msg._id);
-  //   fetchMessages();
-  // };
-
-  // const handleDelete = async (id) => {
-  //   await deleteMessage(id);
-  //   fetchMessages();
-  //   setSelected(null);
-  // };
   return (
     <div className="messages">
       {/* LEFT PANEL */}
@@ -101,7 +99,7 @@ const AdminMessages = () => {
             key={msg._id}
             className={`message-item 
               ${!msg.isRead ? "unread" : ""} 
-              ${selected?.id === msg.id ? "active" : ""}`}
+              ${selected?.id === msg._id ? "active" : ""}`}
             onClick={() => handleSelect(msg)}
           >
             <h4>{msg.name}</h4>
@@ -122,7 +120,7 @@ const AdminMessages = () => {
               <h3>{selected.subject}</h3>
               <button
                 className="delete-btn"
-                onClick={() => handleDelete(selected.id)}
+                onClick={() => handleDelete(selected)}
               >
                 Delete
               </button>

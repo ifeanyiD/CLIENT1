@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/imageUploader.scss";
 import useAxios from "../hooks/useAxios";
 
-export default function ImageUploader({ setImages }) {
+export default function ImageUploader({ setImages, resetTrigger }) {
   const [preview, setPreview] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -78,6 +78,9 @@ export default function ImageUploader({ setImages }) {
     });
   };
 
+  useEffect(()=>{ 
+    setPreview([])
+  }, [resetTrigger])
   return (
     <div className="image-uploader">
       <input

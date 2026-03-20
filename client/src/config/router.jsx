@@ -4,7 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardStats from "../components/DashboardStats";
 import AdminLayout from "../pages/adminLayout";
 import AdminMessages from "../components/AdminMessage";
-import AdminMedia from "../components/AdminMedia";
+import Media from "../pages/AdminMedia";
 import AuthForm from "../components/AuthForm";
 import PersistedRoute from "../auth/persistedRoute";
 import ProtectedRoute from "../auth/protectedRoute";
@@ -12,6 +12,7 @@ import Contact from "../pages/contact";
 import Portfolio from "../pages/portfolio";
 import AboutUs from "../components/AboutUs";
 import Upload from "../components/upload";
+import UsersPage from "../pages/adminMembers";
 
 
     export const router = createBrowserRouter([
@@ -64,15 +65,15 @@ import Upload from "../components/upload";
                                     path : "messages"
                                 },
                                 {
-                                    element : <AdminMedia/>,
+                                    element : <Media/>,
                                     path : "media"
                                 },
                                 {
-                                    element : <AdminMedia/>,
+                                    element : <UsersPage/>,
                                     path : "members"
                                 },
                                     {
-                                    element : <AdminMedia/>,
+                                    // element : <AdminMedia/>,
                                     path : "settings"
                                 }
                             ]

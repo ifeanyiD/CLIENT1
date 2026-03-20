@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const eventSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
+    type : String,
     category: { 
       type: String, 
       enum: ["Wedding", "Corporate", "Birthday", "Conference", "Private"],

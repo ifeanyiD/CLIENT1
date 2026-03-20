@@ -1,22 +1,28 @@
 import dotenv from "dotenv";
+
+dotenv.config({path : "./.env"});
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import authRoutes from "./routes/auth.js";
-import messageRoutes from "./routes/messageRoutes.js";
+import {router, authRouter} from "./routes/messageRoutes.js";
 import Message from "./models/Message.js";
 import { adminOnly } from "./middleware/adminMiddleware.js";
 import cookieParser from "cookie-parser"
 import { verifyToken } from "./config/verifyToken.js";
 import eventRoutes from "./routes/eventRoute.js";
+import statsRoutes from "./routes/dashboardRoutes.js";
 import uploader  from "./routes/uploadRoute.js";
+import users from "./routes/usersRoute.js";
 import { roleCheck } from "./middleware/roleCheck.js";
-
-dotenv.config();
+import dns from  "dns";
 
 const app = express();
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -41,6 +47,7 @@ const io = new Server(server, {
 app.use(express.json());
 app.use(cookieParser())
 
+
 // DATABASE CONNECTION
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
@@ -48,12 +55,14 @@ mongoose.connect(process.env.MONGO_URI)
 
 //Login, Register, Refresher
 app.use("/api/auth", authRoutes);
-
+app.use("/api/messages", router);
 // Protected Route
 app.use(verifyToken, adminOnly);
 
 // ROUTES
-app.use("/api/messages", messageRoutes);
+app.use("/api/users", users);
+app.use("/api/stats", statsRoutes);
+app.use("/api/messages", authRouter);
 app.use("/api/image", roleCheck("admin", "vendor"), uploader);
 
 app.use("/api/events", eventRoutes)
@@ -65,6 +74,15 @@ io.on("connection", (socket) => {
   socket.on("newMessage", async (data) => {
     const saved = await Message.create(data);
     io.emit("receiveMessage", saved);
+
+    //updating dashboard stats
+    const totalMessages = await Message.countDocuments();
+    const unreadMessages = await Message.countDocuments({isRead : false});
+
+    io.emit("dashboardUpdate", {
+      totalMessages,
+      unreadMessages
+    });
   });
 });
 

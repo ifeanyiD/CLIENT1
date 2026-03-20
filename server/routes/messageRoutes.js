@@ -1,12 +1,11 @@
 import express from "express";
 import { createMessage, deleteMessage, getAllMessages, readMessages } from "../controller/messages.js";
 
-const router = express.Router();
+export const router = express.Router();
+export const authRouter = express.Router();
 
 // Messages
 router.post("/", createMessage);
-router.get("/", getAllMessages);
-router.put("/:id/read", readMessages);
-router.delete("/:id", deleteMessage);
-
-export default router;
+authRouter.get("/", getAllMessages);
+authRouter.put("/:id/read", readMessages);
+authRouter.delete("/:id", deleteMessage);

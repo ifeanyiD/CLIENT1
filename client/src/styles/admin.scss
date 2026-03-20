@@ -235,7 +235,7 @@
   margin-bottom: 0.5rem;
   cursor: pointer;
   transition: 0.2s ease;
-
+  background-color: white;
   h4 {
     font-size: 0.9rem;
     margin-bottom: 0.2rem;
@@ -251,7 +251,7 @@
   }
 
   &.unread {
-    background: #eef2ff;
+    background-color: red;
     font-weight: 600;
   }
 

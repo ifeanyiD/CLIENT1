@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import "../styles/contact.scss";
 import { MdEmail, MdAddCall } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
+import { sendMessage } from '../api/api';
 
 function Contact() {
-
     const [form, setForm] = useState({
         name: "",
         email: "",
         subject: "",
         message: ""
-  })
+  });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -18,14 +18,19 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    //await API.post("/contact", form)
-    alert("Message sent!")
-    setForm({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    })
+    try {
+      await sendMessage(form)
+      alert("Message sent!")
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   return (

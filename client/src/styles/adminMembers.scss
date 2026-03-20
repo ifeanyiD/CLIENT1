@@ -1,0 +1,58 @@
+.users-page {
+  padding: 20px;
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    input, select {
+      padding: 8px;
+    }
+  }
+
+  .table {
+    background: #fff;
+    border-radius: 10px;
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+
+      &:hover {
+        background: #f9f9f9;
+      }
+    }
+  }
+
+  .pagination {
+    margin-top: 15px;
+  }
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+
+    .delete {
+      background: red;
+      color: white;
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Uploader from "../components/imageLoader";
 import "../styles/upload.scss"
 import useAxios from "../hooks/useAxios";
 
   const initialForm = {
     title:"",
+    type : "",
     category:"",
     location:"",
     year:"",
@@ -12,15 +13,21 @@ import useAxios from "../hooks/useAxios";
     images:[]
   };
 const Upload= () => {
-  const [form, setForm] = useState({initialForm});
+  const [form, setForm] = useState(initialForm);
+  const [resetTrigger, setResetTrigger] = useState(0);
 
   const API = useAxios();
+
+  const setImagesHandler = useCallback((imgs)=> {
+    setForm(prev => ({...prev, images : imgs}))
+  }, [])
 
   const handleSubmit =  (e)=>{
     e.preventDefault()
     API.post("/events", form)
     .then(()=>{
       setForm(initialForm);
+      setResetTrigger(prev => prev + 1)
       e.target.reset();
       alert("Event Created")
     })
@@ -38,7 +45,14 @@ const Upload= () => {
           placeholder="Event Title"
           onChange={(e)=>setForm({...form,title:e.target.value})}
         />
-
+        
+        <select
+          onChange={(e)=>setForm({...form,type:e.target.value})}
+        >
+          <option></option>
+          <option>Nero</option>
+          <option>Portfolio</option>
+        </select>
         <select
           onChange={(e)=>setForm({...form,category:e.target.value})}
         >
@@ -63,7 +77,10 @@ const Upload= () => {
           placeholder="Event Description"
           onChange={(e)=>setForm({...form,description:e.target.value})}
         />
-        <Uploader setImages={(imgs)=>setForm({...form, images : imgs})}/>
+        <Uploader 
+          setImages={setImagesHandler}
+          resetTrigger={resetTrigger}
+        />
         <button className="save-btn">
           Save Event
         </button>

@@ -11,7 +11,7 @@ const Sidebar = ({ collapsed, sidebarOpen, toggleSidebar }) => {
       <h2 className="sidebar__logo">{collapsed ? "A" : "Admin Panel"}</h2>
 
       <nav className="sidebar__nav">
-        <NavLink to="/admin/" className={active}>Overview</NavLink>
+        <NavLink to="/admin" className={active} end>Overview</NavLink>
         <NavLink to="/admin/messages" className={active}>Messages</NavLink>
         <NavLink to="/admin/upload" className={active}>Upload</NavLink> 
         <NavLink to="/admin/media" className={active}>Media</NavLink> 

@@ -3,6 +3,8 @@ import API from "./axios";
 
 export const authRefresher = API.get("/auth/refresh")
 
+//CONTACT
+export const sendMessage =  (data) => API.post("/messages", data);
 
 export const getMessages = () => API.get("/messages");
 export const deleteMessage = (msg) => API.delete(`/messages/${msg._id}`);
