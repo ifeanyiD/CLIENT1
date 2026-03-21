@@ -19,7 +19,7 @@ const UsersPage = () => {
   const API = useAxios();
 
   const fetchUsers = async () => {
-    const {data} = await API.get(`/users?search=${search}&role=${roleFilter}&page=${page}`);
+    const {data} = await API.get(`/api/users?search=${search}&role=${roleFilter}&page=${page}`);
     setUsers(data.users);
     setPages(data.pages);
   };

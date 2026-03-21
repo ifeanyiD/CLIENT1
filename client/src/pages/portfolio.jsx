@@ -9,7 +9,7 @@ export default function Portfolio() {
   const [filter, setFilter] = useState("All");
 
   useEffect(() => {
-    API.get("/events").then(res => {
+    API.get("/api/events").then(res => {
         setEvents(res.data);
         console.log("coming from contact", res)
     });

@@ -15,7 +15,7 @@ const AdminMessages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
      try {
-       const res = await axios.get("/messages");
+       const res = await axios.get("/api/messages");
        setMessages(res.data);
      } catch (error) {
       console.log(error)
@@ -45,7 +45,7 @@ const AdminMessages = () => {
     setSelected(msg);
     if(msg?.isRead) return;
     try {
-      await axios.put(`/messages/${msg._id}/read`);
+      await axios.put(`/api/messages/${msg._id}/read`);
       setMessages(prev =>
         prev.map(m =>
           m._id === msg._id ? { ...m, isRead: true } : m
@@ -58,8 +58,7 @@ const AdminMessages = () => {
 
   const handleDelete = async (msg) => {
     try {
-      const {data} = await axios.delete(`/messages/${msg._id}`)
-      console.log(data)
+      const {data} = await axios.delete(`/api/messages/${msg._id}`)
       setMessages(prev => prev.filter(m => m._id !== msg._id));
       if (selected?._id === msg._id) setSelected(null);
     } catch (error) {

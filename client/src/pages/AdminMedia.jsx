@@ -13,7 +13,7 @@ const AdminMedia = () => {
 
   const fetchEvents = async () => {
     try {
-      const res = await API.get("/events");
+      const res = await API.get("/api/events");
       setEvents(res.data);
     } catch (err) {
       console.log(err);
@@ -35,7 +35,7 @@ const AdminMedia = () => {
 
   const handleDelete = async (id) => {
     try {
-      await API.delete(`/events/${id}`);
+      await API.delete(`/api/events/${id}`);
       setEvents(prev => prev.filter(e => e._id !== id));
     } catch (err) {
       console.log(err);

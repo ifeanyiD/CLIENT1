@@ -24,7 +24,7 @@ const Upload= () => {
 
   const handleSubmit =  (e)=>{
     e.preventDefault()
-    API.post("/events", form)
+    API.post("/api/events", form)
     .then(()=>{
       setForm(initialForm);
       setResetTrigger(prev => prev + 1)

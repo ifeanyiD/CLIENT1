@@ -23,7 +23,7 @@ const AuthForm = () => {
   const handleLogin = async (e) =>{
     try {
       e.preventDefault();
-      const {data} = await API.post("/auth/login", {
+      const {data} = await API.post("/api/auth/login", {
         email : Login.email,
         password : Login.pwd
       });
@@ -44,7 +44,7 @@ const AuthForm = () => {
     e.preventDefault();
     const {email, pwd, name} = signUp;
     try {
-      const res = await API.put("/auth/register", {email, password : pwd, name});
+      const res = await API.put("/api/auth/register", {email, password : pwd, name});
       console.log(res);
       
     } catch (error) {

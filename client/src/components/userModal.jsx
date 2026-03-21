@@ -6,13 +6,13 @@ const UserModal = ({ user, onClose, currentUser, refresh }) => {
   const handleDelete = async () => {
     if (!window.confirm("Delete this user?")) return;
 
-    await API.delete(`/users/${user._id}`);
+    await API.delete(`/api/users/${user._id}`);
     refresh();
     onClose();
   };
 
   const handleRoleChange = async (role) => {
-    await API.put(`/users/${user._id}/role`, {role});
+    await API.put(`/api/users/${user._id}/role`, {role});
     refresh();
   };
 

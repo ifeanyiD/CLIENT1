@@ -7,7 +7,7 @@ const EditModal = ({ event, onClose, refresh }) => {
   const API = useAxios();
  
   const handleUpdate = async () => {
-    await API.put(`/events/${event._id}`, form);
+    await API.put(`/api/events/${event._id}`, form);
     refresh();
     onClose();
   };

@@ -27,7 +27,7 @@ export default function ImageUploader({ setImages, resetTrigger }) {
     files.forEach((file) => formData.append("images", file));
 
     setUploading(true);
-    API.post("/image/upload", formData, {
+    API.post("/api/image/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
     })
     .then((res)=>{
@@ -59,7 +59,7 @@ export default function ImageUploader({ setImages, resetTrigger }) {
     const img = preview[index];
     if(img.public_id){
       try {
-        await API.delete(`/image/delete/${encodeURIComponent(img.public_id)}`);
+        await API.delete(`/api/image/delete/${encodeURIComponent(img.public_id)}`);
         console.log("Deleted from Cloudinary:", img.public_id);
     } catch (err) {
         console.error("Failed to delete from Cloudinary:", err);
