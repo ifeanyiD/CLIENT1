@@ -19,6 +19,7 @@ import uploader  from "./routes/uploadRoute.js";
 import users from "./routes/usersRoute.js";
 import { roleCheck } from "./middleware/roleCheck.js";
 import dns from  "dns";
+import allowedOrigins from "./config/allowedOrigins.js";
 
 const app = express();
 
@@ -26,7 +27,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || origin.startsWith("http://localhost:5173")) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
