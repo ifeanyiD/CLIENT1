@@ -41,8 +41,8 @@ export const loginUser = async (req, res) => {
       
       res.cookie("jwt", refreshToken, {
         httpOnly : true,
-        secure : false,
-        sameSite : "lax",
+        secure : true,
+        sameSite : "None",
         maxAge: 7 * 24 * 60 * 60 * 1000
       });
 
@@ -76,7 +76,7 @@ export const logoutUser = async (req, res) => {
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure: true,
-    sameSite: "strict"
+    sameSite: "None"
   })
 
   res.sendStatus(204)

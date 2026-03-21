@@ -25,7 +25,7 @@ export const refreshTokenHandler = async (req, res) => {
     res.cookie("jwt", refreshToken, {
         httpOnly: true,
         sameSite: "Lax",
-        secure: false, // true in production
+        secure: true, // true in production
         maxAge: 24 * 60 * 60 * 1000
     });
     
